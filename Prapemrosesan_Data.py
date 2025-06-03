@@ -341,7 +341,7 @@ if __name__ == "__main__":
     df = pd.read_csv('diabetes.csv')
     
     #ambil fitur
-    selected_features = ['Glucose', 'BloodPressure', 'BMI', 'Age', 'Outcome']
+    selected_features = ['Glucose', 'BloodPressure', 'SkinThickness', 'Insulin', 'BMI']
     df = df[selected_features]
 
     # Mengganti nilai 0 menjadi NaN pada fitur selain outcome
@@ -349,3 +349,12 @@ if __name__ == "__main__":
         df[col] = df[col].replace(0, np.nan)
 
     # Inisialisasi preprocessor
+    preprocessor = DataPreprocessor()
+
+    # Menangani missing values dengan mengisi dengan median
+    df = preprocessor.handle_missing_values(df, strategy='median', columns=selected_features)
+
+    print(df.head())
+
+
+
